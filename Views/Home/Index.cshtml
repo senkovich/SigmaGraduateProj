@@ -1,0 +1,30 @@
+﻿@model IEnumerable<SigmaGraduateProj.Models.Transaction>
+@{
+    ViewData["Title"] = "Список транзакцій";
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Список транзакцій</title>
+</head>
+<body>
+    <h3>транзакцій</h3>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>UserId</td>
+            <td>Date</td>
+            <td></td>
+        </tr>
+        @foreach (var action in Model)
+        {
+            <tr>
+                <td>@action.Id</td>
+                <td>@action.Date</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

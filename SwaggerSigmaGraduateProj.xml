@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SigmaGraduateProj</name>
+    </assembly>
+    <members>
+        <member name="M:SigmaGraduateProj.Controllers.CurrencyController.Exchange(System.String,System.String)">
+            <summary>
+            Gets Currency exchange for date.
+            </summary>
+            <param name="currencyName">The Currency name you wish to get currency.</param>
+            <param name="date">The date "dd.MM.yyyy" you wish to get currency.</param>
+            <returns></returns>
+            <response code="200">Currency returned</response>
+            <response code="400">Invalid input params</response>  
+        </member>
+        <member name="M:SigmaGraduateProj.Controllers.HBCurrencyController.List">
+            <summary>
+            Gets List of availible Currencies.
+            </summary>
+            <returns></returns>
+            <response code="200">List of Currencies returned</response>
+        </member>
+        <member name="M:SigmaGraduateProj.Controllers.ReportController.MakeQuarter(System.Int32,System.Int32,System.String)">
+            <summary>
+            Make Quarter TAX report.
+            </summary>
+            <param name="Year">The year "yyyy" you wish to get TAX report.</param>
+            <param name="Quarter">The quarter of Year "1-4" you wish to get TAX report.</param>
+            <param name="type">The type of data you wish to get TAX report (json/html).</param>
+            <returns></returns>
+            <response code="200">Quarter TAX report returned</response>
+            <response code="400">Bad request params</response>   
+        </member>
+        <member name="M:SigmaGraduateProj.Controllers.ReportController.ReMakeQuarter(System.Int32,System.Int32,System.String)">
+            <summary>
+            Remake existing Quarter TAX report.
+            </summary>
+            <param name="Year">The year "yyyy" you wish to get TAX report.</param>
+            <param name="Quarter">The quarter of Year "1-4" you wish to get TAX report.</param>
+            <param name="type">The type of data you wish to get TAX report (json/html).</param>
+            <returns></returns>
+            <response code="200">Remade Quarter TAX report returned</response>
+            <response code="400">Bad request params</response>      
+        </member>
+        <member name="M:SigmaGraduateProj.Controllers.TransactionsController.Get100">
+            <summary>
+            Gets last 100 transactions.
+            </summary>
+            <returns></returns>
+            <response code="200">Transactions returned</response>      
+        </member>
+        <member name="M:SigmaGraduateProj.Controllers.TransactionsController.GetById(System.Int32)">
+            <summary>
+            Gets a transaction by id.
+            </summary>
+            <param name="id">The id of the transaction you wish to get.</param>
+            <returns></returns>
+            <response code="200">Transaction returned</response>
+            <response code="404">Transaction not found</response>        
+        </member>
+        <member name="M:SigmaGraduateProj.Controllers.TransactionsController.GetInterval(System.String,System.String,System.String)">
+            <summary>
+            Gets a transactions per interval.
+            </summary>
+            <param name="fromDate">The starting date "dd.MM.yyyy" from which you wish to get transactions.</param>
+            <param name="toDate">The ending date "dd.MM.yyyy" to which you wish to get transactions.</param>
+            <param name="type">The type of data you wish to get transactions (json/html).</param>
+            <returns></returns>
+            <response code="200">Transactions returned</response>
+            <response code="400">Invalid input params</response>  
+            <response code="404">Transactions not found</response>   
+        </member>
+        <member name="M:SigmaGraduateProj.Controllers.TransactionsController.Create(SigmaGraduateProj.Models.Transaction)">
+            <summary>
+            Creates new transaction.
+            </summary>
+            <returns></returns>
+            <response code="200">Return created transaction</response>
+            <response code="400">List invalid transaction params:</response>  
+        </member>
+        <member name="M:SigmaGraduateProj.Controllers.TransactionsController.Delete(System.Int32)">
+            <summary>
+            Delete transaction by id.
+            </summary>
+            <returns></returns>
+            <response code="200">Transaction deleted</response>
+            <response code="400">Delete error</response>  
+            <response code="404">Transaction not found</response>  
+        </member>
+        <member name="M:SigmaGraduateProj.Controllers.TransactionsController.Replace(System.Int32,SigmaGraduateProj.Models.Transaction)">
+            <summary>
+            Replace transaction by id.
+            </summary>
+            <returns></returns>
+            <response code="200">Transaction replaced</response>
+            <response code="400">Bad request params</response>  
+            <response code="404">Transaction not found</response>  
+        </member>
+    </members>
+</doc>
