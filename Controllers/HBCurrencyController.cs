@@ -72,48 +72,43 @@ namespace SigmaGraduateProj.Controllers
             return true;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> FillHBCurrency()
+        /// <summary>
+        /// Updates list of availible Currencies from https://bank.gov.ua/.
+        /// </summary>
+        /// <returns></returns>
+        /// <response code="200">List of availible Currencies from https://bank.gov.ua/ returned</response>
+        /// <response code="400">Error connecting to https://bank.gov.ua/</response>
+        [HttpGet("[controller]/[action]")]
+        [ProducesResponseType(typeof(List<HBCurrency>), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        public async Task<IActionResult> UpdateHBCurrency()
         {
-            List<HBCurrency> currencies = new List<HBCurrency>();
+            var hbcurrencies = await _dBContext.HBCurrencies.ToListAsync();
+            _dBContext.HBCurrencies.RemoveRange(hbcurrencies);
+            await _dBContext.SaveChangesAsync();
 
-            if (_dBContext.HBCurrencies.Count() > 0)
+            string nbuCurrencyJson;
+            try
             {
-                return Ok("HBCurrencies is not empty");
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(_nbuApi + "json");
+                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+
+                StreamReader sr = new StreamReader(resp.GetResponseStream());
+                nbuCurrencyJson = sr.ReadToEnd();
+                sr.Close();
             }
-            else
+            catch (Exception ex)
             {
-                string currencyJson;
-                var filepath = Path.Combine("wwwroot", "curr.json");
-                if (System.IO.File.Exists(filepath))
-                {
-                    currencyJson = System.IO.File.ReadAllText(filepath);
-                }
-                else
-                {
-                    try
-                    {
-                        HttpWebRequest req = (HttpWebRequest)WebRequest.Create(_nbuApi + "json");
-                        HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-
-                        StreamReader sr = new StreamReader(resp.GetResponseStream());
-                        currencyJson = sr.ReadToEnd();
-                        sr.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        return BadRequest(ex.Message);
-                    }
-                }
-
-                var settings = new JsonSerializerSettings();
-                settings.ContractResolver = new HBCurrencyCustomContractResolver();
-                currencies = JsonConvert.DeserializeObject<List<HBCurrency>>(currencyJson, settings);
-
-                _dBContext.HBCurrencies.AddRange(currencies);
-                await _dBContext.SaveChangesAsync();
-                return Ok(currencies);
+                return BadRequest(ex.Message);
             }
+
+            var jssettings = new JsonSerializerSettings();
+            jssettings.ContractResolver = new HBCurrencyCustomContractResolver();
+            List<HBCurrency> currencies = JsonConvert.DeserializeObject<List<HBCurrency>>(nbuCurrencyJson, jssettings);
+
+            _dBContext.HBCurrencies.AddRange(currencies);
+            await _dBContext.SaveChangesAsync();
+            return Ok(currencies);            
         }
     }
 }

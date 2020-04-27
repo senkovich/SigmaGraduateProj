@@ -21,6 +21,14 @@
             <returns></returns>
             <response code="200">List of Currencies returned</response>
         </member>
+        <member name="M:SigmaGraduateProj.Controllers.HBCurrencyController.UpdateHBCurrency">
+            <summary>
+            Updates list of availible Currencies from https://bank.gov.ua/.
+            </summary>
+            <returns></returns>
+            <response code="200">List of availible Currencies from https://bank.gov.ua/ returned</response>
+            <response code="400">Error connecting to https://bank.gov.ua/</response>
+        </member>
         <member name="M:SigmaGraduateProj.Controllers.ReportController.MakeQuarter(System.Int32,System.Int32,System.String)">
             <summary>
             Make Quarter TAX report.
