@@ -117,7 +117,7 @@ namespace SigmaGraduateProj.Controllers
                     new DataColumn("Отправитель",typeof(string)),
                     new DataColumn("Комментарий",typeof(string)) });
 
-            int i = 0;
+            int i = 1;
             foreach(var t in tdata)
             {
                 dt.Rows.Add(i, t.Date.ToString("dd.MM.yyyy"), t.Sum, t.CurrencyName, t.Sender, t.Comment);
@@ -165,7 +165,7 @@ namespace SigmaGraduateProj.Controllers
         {
             if (!_hBCurrencyController.CheckCurrencyExists(transaction.CurrencyName))
             {
-                ModelState.AddModelError("CurrencyName", $"Валюта Date не существует");
+                ModelState.AddModelError("CurrencyName", $"Валюта {transaction.CurrencyName} не существует");
             }
             else if (transaction.Date>DateTime.Now)
             {

@@ -171,7 +171,7 @@ namespace SigmaGraduateProj.Controllers
                     new DataColumn("Отправитель",typeof(string)),
                     new DataColumn("Комментарий",typeof(string)) });
             
-            int i = 0;
+            int i = 1;
             foreach (var r in rdata.Tab)
             {
                 dt.Rows.Add(i, r.Date.ToString("dd.MM.yyyy"), r.Sum, r.CurrencyName, r.CurrencyExchRate, decimal.Round(r.SumUah, 2), r.Sender, r.Comment);
